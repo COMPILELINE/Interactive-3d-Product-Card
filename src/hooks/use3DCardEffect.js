@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 
-// A custom hook to check for the user's motion preference
 const usePrefersReducedMotion = () => {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
@@ -19,21 +18,7 @@ const usePrefersReducedMotion = () => {
   return prefersReducedMotion;
 };
 
-/**
- * @typedef {Object} CardEffectOptions
- * @property {number} [maxRotation=10] - Maximum rotation in degrees.
- * @property {number} [maxShineOpacity=0.6] - Maximum opacity for the shine effect.
- * @property {number} [scaleOnHover=1.05] - Scale factor on hover.
- * @property {number} [perspective=1000] - CSS perspective value.
- */
-
-/**
- * A React hook for creating a 3D interactive card effect.
- * @param {React.RefObject<HTMLElement>} cardRef - Ref to the card element.
- * @param {CardEffectOptions} [options] - Configuration options for the effect.
- * @returns {{ style: React.CSSProperties, shineStyle: React.CSSProperties, containerStyle: React.CSSProperties }}
- */
-export const use3DCardEffect = (containerRef, options = {}) => { // <-- FIX 5
+export const use3DCardEffect = (containerRef, options = {}) => {
   const {
     maxRotation = 10,
     maxShineOpacity = 0.6,
@@ -55,7 +40,6 @@ export const use3DCardEffect = (containerRef, options = {}) => { // <-- FIX 5
       return;
     }
 
-    // --- FIX 6: Rename 'card' to 'container' ---
     const container = containerRef.current;
     if (!container) return;
 
@@ -65,10 +49,8 @@ export const use3DCardEffect = (containerRef, options = {}) => { // <-- FIX 5
       }
 
       rafId.current = requestAnimationFrame(() => {
-        // --- FIX 7: Get bounds from the container ---
         const { left, top, width, height } = container.getBoundingClientRect();
 
-        // ... (math calculations remain exactly the same) ...
         const x = e.clientX - left;
         const y = e.clientY - top;
         const centerX = width / 2;
@@ -88,7 +70,6 @@ export const use3DCardEffect = (containerRef, options = {}) => { // <-- FIX 5
           maxShineOpacity
         );
 
-        // Update styles (this logic is correct)
         setStyle({
           transform: `scale(${scaleOnHover}) translateZ(20px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
           willChange: 'transform',
@@ -98,7 +79,6 @@ export const use3DCardEffect = (containerRef, options = {}) => { // <-- FIX 5
         setShineStyle({
           opacity: shineOpacity,
           background: `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.8), transparent 40%)`,
-        //   transform: `rotate(${shineAngle}deg)`,
           willChange: 'opacity, background',
         });
       });
@@ -109,7 +89,6 @@ export const use3DCardEffect = (containerRef, options = {}) => { // <-- FIX 5
         cancelAnimationFrame(rafId.current);
       }
 
-      // Reset styles with a smooth transition
       setStyle({
         transform: 'scale(1) translateZ(0) rotateX(0deg) rotateY(0deg)',
         willChange: 'transform',
@@ -122,11 +101,9 @@ export const use3DCardEffect = (containerRef, options = {}) => { // <-- FIX 5
       });
     };
 
-    // --- FIX 8: Attach listeners to the container ---
     container.addEventListener('mousemove', handleMouseMove);
     container.addEventListener('mouseleave', handleMouseLeave);
 
-    // Cleanup
     return () => {
       if (rafId.current) {
         cancelAnimationFrame(rafId.current);
@@ -134,7 +111,6 @@ export const use3DCardEffect = (containerRef, options = {}) => { // <-- FIX 5
       container.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('mouseleave', handleMouseLeave);
     };
-    // --- FIX 9: Update the dependency array ---
   }, [containerRef, prefersReducedMotion, maxRotation, maxShineOpacity, scaleOnHover]);
 
   return { style, shineStyle, containerStyle };

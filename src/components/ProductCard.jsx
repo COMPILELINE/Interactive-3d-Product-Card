@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { use3DCardEffect } from '../hooks/use3DCardEffect';
 import styles from './ProductCard.module.css';
 
-// --- NEW, WORKING IMAGE LINK ---
 const exampleProductImage = 'https://m.media-amazon.com/images/I/71T+O83TLfL.jpg_BO30,255,255,255_UF900,850_SR1910,1000,0,C_QL100_.jpg';
 
 export const ProductCard = () => {
@@ -28,7 +27,7 @@ export const ProductCard = () => {
         
         <div className={styles.contentWrapper}>
           <img
-            src={exampleProductImage} // <-- The new link is used here
+            src={exampleProductImage}
             alt="Product"
             className={styles.productImage}
           />
