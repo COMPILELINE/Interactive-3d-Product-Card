@@ -1,16 +1,84 @@
-# React + Vite
+# 🚀 Interactive 3D Product Card
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-fidelity, motion-enhanced product card built with **React**. Designed to deliver a premium UX where the card tilts with cursor movement, elements float in 3D layers, and a glossy highlight follows the pointer. This creates a tactile, “real-world object” feeling inside the browser.
 
-Currently, two official plugins are available:
+## ✅ Feature Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+| Feature | Status | Tech |
+|---|---|---|
+3D cursor-driven tilt | ✅ | React Hooks, `requestAnimationFrame`
+Hover elevation | ✅ | CSS `translateZ()`
+Glossy shine reflection | ✅ | CSS radial gradient + JS tracking
+Smooth magnetic reset | ✅ | `cubic-bezier` transitions
+Performance optimization | ✅ | `will-change`, `rAF` loop
+Accessibility fallback | ✅ | `prefers-reduced-motion`
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Project Overview
 
-## Expanding the ESLint configuration
+This component uses **CSS 3D transforms**, custom math, and event-driven motion handling to simulate depth, gloss, and responsive interaction. Great for **e-commerce**, **portfolio UI effects**, and **premium landing pages**.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠 Tech Stack
+
+- **Framework:** ReactJS
+- **Language:** JavaScript (ES6+)
+- **Styling:** CSS Modules
+- **Performance:** `requestAnimationFrame`, GPU transforms, `will-change`
+
+---
+
+## 💡 Core Motion Features
+
+- Tilts up to **±12°** on both axes
+- Parallax depth layers using `translateZ(40px-80px)`
+- Gloss reflection spotlight that follows cursor
+- Snaps back smoothly on `mouseleave` using: cubic-bezier(0.23, 1, 0.32, 1)
+- Render-synced animation via `requestAnimationFrame`
+- Respects **reduced-motion accessibility settings**
+
+---
+
+## 🧠 Architecture
+
+| File | Responsibility |
+|---|---|
+`ProductCard.jsx` | UI markup + refs
+`use3DCardEffect.js` | Pointer math, state control, rAF engine
+`ProductCard.module.css` | Depth layers, perspective, transitions
+
+### Key Technical Notes
+
+- Mouse events bind to **wrapper**, not the moving element, preventing hover flicker
+- Cursor coords normalized to **-1 → +1** range before rotation mapping
+- GPU transforms prioritized over layout-changing properties
+
+---
+
+## 📦 Installation
+
+### Prerequisites
+- Node.js (LTS)
+- npm or yarn
+
+### Setup
+
+```bash
+git clone https://github.com/COMPILELINE/Interactive-3d-Product-Card.git
+cd interactive-3d-product-card
+npm install
+# or
+yarn install
+```
+### Run Dev Server
+```bash
+npm run dev
+# or
+yarn dev
+```
+### Launches at:
+```bash
+http://localhost:5173
+```
