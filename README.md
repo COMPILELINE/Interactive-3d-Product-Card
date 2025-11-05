@@ -35,7 +35,7 @@ This component uses **CSS 3D transforms**, custom math, and event-driven motion 
 - Tilts up to **±12°** on both axes
 - Parallax depth layers using `translateZ(40px-80px)`
 - Gloss reflection spotlight that follows cursor
-- Snaps back smoothly on `mouseleave` using: cubic-bezier(0.23, 1, 0.32, 1)
+- Snaps back smoothly on `mouseleave` using: `cubic-bezier(0.23, 1, 0.32, 1)`
 - Render-synced animation via `requestAnimationFrame`
 - Respects **reduced-motion accessibility settings**
 
